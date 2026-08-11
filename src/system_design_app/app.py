@@ -48,11 +48,11 @@ def run() -> None:
     sent_ids = load_state(STATE_PATH)
     unsent, sent_ids = get_unsent(entries, sent_ids)
 
-    if cfg.anthropic_api_key and len(unsent) < LOW_STOCK_THRESHOLD:
+    if cfg.gemini_api_key and len(unsent) < LOW_STOCK_THRESHOLD:
         try:
             new_entries = generate_entries(
-                api_key=cfg.anthropic_api_key,
-                model=cfg.anthropic_model,
+                api_key=cfg.gemini_api_key,
+                model=cfg.gemini_model,
                 count=GENERATE_BATCH_SIZE,
                 existing_entries=entries,
                 start_id=next_id(entries),

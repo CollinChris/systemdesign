@@ -1,11 +1,12 @@
-"""Generates new content-bank entries via the Anthropic API when the bank runs low."""
+"""Generates new content-bank entries via the Gemini API when the bank runs low."""
 
 from __future__ import annotations
 
 import json
 import logging
 
-import anthropic
+from google import genai
+from google.genai import errors, types
 
 from system_design_app.models import Entry
 
@@ -30,7 +31,7 @@ Respond with ONLY the JSON array, no other text."""
 
 
 class GenerationError(RuntimeError):
-    """Raised when the Anthropic API fails or returns unusable content."""
+    """Raised when the Gemini API fails or returns unusable content."""
 
 
 def generate_entries(
@@ -40,7 +41,7 @@ def generate_entries(
     existing_entries: list[Entry],
     start_id: int,
 ) -> list[Entry]:
-    client = anthropic.Anthropic(api_key=api_key)
+    client = genai.Client(api_key=api_key)
     existing_summaries = "; ".join(
         (e.text or e.question or "")[:80] for e in existing_entries[-20:]
     )
@@ -49,17 +50,15 @@ def generate_entries(
     )
 
     try:
-        response = client.messages.create(
+        response = client.models.generate_content(
             model=model,
-            max_tokens=2000,
-            messages=[{"role": "user", "content": prompt}],
+            contents=prompt,
+            config=types.GenerateContentConfig(response_mime_type="application/json"),
         )
-    except anthropic.APIError as exc:
-        raise GenerationError(f"Anthropic API request failed: {exc}") from exc
+    except errors.APIError as exc:
+        raise GenerationError(f"Gemini API request failed: {exc}") from exc
 
-    # Content blocks are a polymorphic union (text/tool_use/...); only text
-    # blocks carry a `.text` attribute, hence the defensive getattr.
-    raw_text = "".join(getattr(block, "text", "") for block in response.content)
+    raw_text = response.text or ""
 
     try:
         raw_entries = json.loads(raw_text)

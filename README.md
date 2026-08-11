@@ -22,10 +22,12 @@ Fill in `.env`:
    `https://api.telegram.org/bot<TOKEN>/getUpdates` in a browser and read
    `message.chat.id` from the JSON response (or ask
    [@userinfobot](https://t.me/userinfobot)). Put it in `TELEGRAM_CHAT_ID`.
-3. **Optional — `ANTHROPIC_API_KEY`**: if set, the app automatically
+3. **Optional — `GEMINI_API_KEY`**: if set, the app automatically
    generates and appends new fact/quiz entries to `data/content_bank.json`
-   via the Anthropic API whenever fewer than 3 unsent entries remain. Leave
-   it blank to rely solely on the curated content bank.
+   via the Gemini API whenever fewer than 3 unsent entries remain. Get a
+   free key (no payment method required) at
+   [Google AI Studio](https://aistudio.google.com/apikey). Leave it blank
+   to rely solely on the curated content bank.
 
 ## Running manually
 
@@ -52,18 +54,18 @@ GitHub's cloud, so your own machine doesn't need to be on or logged in.
 1. Push this repo to GitHub (if not already).
 2. Add repo secrets under **Settings → Secrets and variables → Actions**:
    `TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_ID`, and optionally
-   `ANTHROPIC_API_KEY` — same values as your `.env`. Or via the CLI:
+   `GEMINI_API_KEY` — same values as your `.env`. Or via the CLI:
    ```
    gh secret set TELEGRAM_BOT_TOKEN
    gh secret set TELEGRAM_CHAT_ID
-   gh secret set ANTHROPIC_API_KEY   # optional
+   gh secret set GEMINI_API_KEY   # optional
    ```
 3. That's it — the workflow fires daily at `0 5 * * *` UTC (1:00 PM
    Asia/Singapore) via its `schedule` trigger, and can also be run on
    demand from the Actions tab (`workflow_dispatch`).
 
 Since GitHub Actions runners are ephemeral, `data/state.json` (send
-history) and `data/content_bank.json` (grows via the optional Anthropic
+history) and `data/content_bank.json` (grows via the optional Gemini
 top-up) are committed back to the repo by the workflow after each run —
 that's why `data/state.json` is tracked in git rather than ignored.
 

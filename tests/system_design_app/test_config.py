@@ -14,19 +14,19 @@ def _write_env(tmp_path: Path, content: str) -> Path:
 def test_load_config_reads_required_and_optional_fields(tmp_path, monkeypatch):
     monkeypatch.delenv("TELEGRAM_BOT_TOKEN", raising=False)
     monkeypatch.delenv("TELEGRAM_CHAT_ID", raising=False)
-    monkeypatch.delenv("ANTHROPIC_API_KEY", raising=False)
-    monkeypatch.delenv("ANTHROPIC_MODEL", raising=False)
+    monkeypatch.delenv("GEMINI_API_KEY", raising=False)
+    monkeypatch.delenv("GEMINI_MODEL", raising=False)
     env_file = _write_env(
         tmp_path,
-        "TELEGRAM_BOT_TOKEN=abc123\nTELEGRAM_CHAT_ID=999\nANTHROPIC_API_KEY=sk-test\n",
+        "TELEGRAM_BOT_TOKEN=abc123\nTELEGRAM_CHAT_ID=999\nGEMINI_API_KEY=test-key\n",
     )
 
     cfg = load_config(env_file=env_file)
 
     assert cfg.telegram_bot_token == "abc123"
     assert cfg.telegram_chat_id == "999"
-    assert cfg.anthropic_api_key == "sk-test"
-    assert cfg.anthropic_model == "claude-sonnet-5"
+    assert cfg.gemini_api_key == "test-key"
+    assert cfg.gemini_model == "gemini-flash-latest"
 
 
 def test_load_config_missing_token_raises(tmp_path, monkeypatch):
@@ -38,15 +38,15 @@ def test_load_config_missing_token_raises(tmp_path, monkeypatch):
         load_config(env_file=env_file)
 
 
-def test_load_config_blank_anthropic_key_is_none(tmp_path, monkeypatch):
+def test_load_config_blank_gemini_key_is_none(tmp_path, monkeypatch):
     monkeypatch.delenv("TELEGRAM_BOT_TOKEN", raising=False)
     monkeypatch.delenv("TELEGRAM_CHAT_ID", raising=False)
-    monkeypatch.delenv("ANTHROPIC_API_KEY", raising=False)
+    monkeypatch.delenv("GEMINI_API_KEY", raising=False)
     env_file = _write_env(
         tmp_path,
-        "TELEGRAM_BOT_TOKEN=abc123\nTELEGRAM_CHAT_ID=999\nANTHROPIC_API_KEY=\n",
+        "TELEGRAM_BOT_TOKEN=abc123\nTELEGRAM_CHAT_ID=999\nGEMINI_API_KEY=\n",
     )
 
     cfg = load_config(env_file=env_file)
 
-    assert cfg.anthropic_api_key is None
+    assert cfg.gemini_api_key is None

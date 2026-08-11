@@ -13,7 +13,7 @@ DATA_DIR = PROJECT_ROOT / "data"
 CONTENT_BANK_PATH = DATA_DIR / "content_bank.json"
 STATE_PATH = DATA_DIR / "state.json"
 
-DEFAULT_ANTHROPIC_MODEL = "claude-sonnet-5"
+DEFAULT_GEMINI_MODEL = "gemini-flash-latest"
 LOW_STOCK_THRESHOLD = 3
 GENERATE_BATCH_SIZE = 5
 
@@ -26,8 +26,8 @@ class ConfigError(RuntimeError):
 class Config:
     telegram_bot_token: str
     telegram_chat_id: str
-    anthropic_api_key: str | None
-    anthropic_model: str = DEFAULT_ANTHROPIC_MODEL
+    gemini_api_key: str | None
+    gemini_model: str = DEFAULT_GEMINI_MODEL
 
 
 def load_config(env_file: Path | None = None) -> Config:
@@ -41,12 +41,12 @@ def load_config(env_file: Path | None = None) -> Config:
     if not chat_id:
         raise ConfigError("TELEGRAM_CHAT_ID is not set")
 
-    api_key = os.environ.get("ANTHROPIC_API_KEY", "").strip() or None
-    model = os.environ.get("ANTHROPIC_MODEL", "").strip() or DEFAULT_ANTHROPIC_MODEL
+    api_key = os.environ.get("GEMINI_API_KEY", "").strip() or None
+    model = os.environ.get("GEMINI_MODEL", "").strip() or DEFAULT_GEMINI_MODEL
 
     return Config(
         telegram_bot_token=token,
         telegram_chat_id=chat_id,
-        anthropic_api_key=api_key,
-        anthropic_model=model,
+        gemini_api_key=api_key,
+        gemini_model=model,
     )

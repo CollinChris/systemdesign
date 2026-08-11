@@ -32,11 +32,11 @@ def test_get_unsent_reshuffles_when_pool_exhausted():
     assert sent_ids == set()
 
 
-def _no_op_config(anthropic_api_key=None):
+def _no_op_config(gemini_api_key=None):
     return Config(
         telegram_bot_token="TOKEN",
         telegram_chat_id="123",
-        anthropic_api_key=anthropic_api_key,
+        gemini_api_key=gemini_api_key,
     )
 
 
@@ -73,7 +73,7 @@ def test_run_tops_up_via_generator_when_stock_is_low(monkeypatch):
     saved_bank = {}
 
     monkeypatch.setattr(
-        app, "load_config", lambda: _no_op_config(anthropic_api_key="sk-test")
+        app, "load_config", lambda: _no_op_config(gemini_api_key="sk-test")
     )
     monkeypatch.setattr(app, "load_bank", lambda path: [FACT])
     monkeypatch.setattr(app, "load_state", lambda path: set())
