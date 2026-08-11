@@ -9,6 +9,12 @@ wheels/
 # Virtual environments
 .venv
 
+# Test artifacts
+.coverage
+
 # Secrets and runtime state
 .env
-data/state.json
+logs/
+
+# data/state.json is intentionally tracked - GitHub Actions runners are
+# ephemeral, so send-history has to be committed back to persist across runs.

@@ -1,0 +1,92 @@
+[
+  {
+    "id": 1,
+    "type": "fact",
+    "text": "The CAP theorem states that a distributed data store can only guarantee two of three properties at once: consistency, availability, and partition tolerance. Since network partitions are unavoidable at scale, most real systems end up choosing between consistency and availability when one occurs.",
+    "source_url": "https://en.wikipedia.org/wiki/CAP_theorem",
+    "source_excerpt": "Wikipedia's overview explains that the CAP theorem describes the trade-off distributed systems face between consistency, availability, and partition tolerance during a network partition."
+  },
+  {
+    "id": 2,
+    "type": "quiz",
+    "question": "Why is consistent hashing preferred over simple modulo hashing when distributing keys across a changing set of cache or database nodes?",
+    "answer": "Consistent hashing only remaps a small fraction of keys (roughly k/n) when a node is added or removed, whereas modulo hashing (key % n) remaps almost all keys any time n changes, causing a massive cache miss storm.",
+    "source_url": "https://en.wikipedia.org/wiki/Consistent_hashing",
+    "source_excerpt": "Wikipedia notes that consistent hashing minimizes the number of keys that need to be remapped when the hash table is resized, unlike naive modulo-based schemes."
+  },
+  {
+    "id": 3,
+    "type": "fact",
+    "text": "Round robin and least-connections are two common load balancing algorithms: round robin cycles through servers in order regardless of load, while least-connections routes each new request to whichever server currently has the fewest active connections.",
+    "source_url": "https://en.wikipedia.org/wiki/Load_balancing_(computing)",
+    "source_excerpt": "Wikipedia's article on load balancing describes round robin, least connections, and other scheduling algorithms used to distribute traffic across a pool of servers."
+  },
+  {
+    "id": 4,
+    "type": "quiz",
+    "question": "What does it mean for an API endpoint to be idempotent, and why does that matter for retry logic?",
+    "answer": "An idempotent endpoint produces the same result no matter how many times the identical request is applied (e.g. PUT or DELETE by ID). That safety lets clients blindly retry on timeouts or network errors without risking duplicate side effects, such as double-charging a customer.",
+    "source_url": "https://en.wikipedia.org/wiki/Idempotence",
+    "source_excerpt": "Wikipedia defines idempotence in the context of HTTP methods as an operation that can be applied multiple times without changing the result beyond the initial application."
+  },
+  {
+    "id": 5,
+    "type": "fact",
+    "text": "A content delivery network (CDN) caches static content on edge servers geographically close to end users, cutting latency by avoiding a round trip to the origin server for every request.",
+    "source_url": "https://en.wikipedia.org/wiki/Content_delivery_network",
+    "source_excerpt": "Wikipedia describes a CDN as a geographically distributed network of proxy servers that caches content close to end users to reduce latency and origin load."
+  },
+  {
+    "id": 6,
+    "type": "quiz",
+    "question": "What's the difference between database sharding and vertical partitioning?",
+    "answer": "Sharding splits rows of the same table across multiple database instances by a shard key (horizontal partitioning), so each shard holds a subset of rows. Vertical partitioning instead splits columns of a table across different tables or stores, so each partition holds a subset of fields for every row.",
+    "source_url": "https://en.wikipedia.org/wiki/Shard_(database_architecture)",
+    "source_excerpt": "Wikipedia's article on database sharding contrasts horizontal partitioning (sharding) with vertical partitioning of a schema."
+  },
+  {
+    "id": 7,
+    "type": "fact",
+    "text": "Message queues decouple producers from consumers: a producer can publish a message and move on immediately, while one or more consumers process it independently and at their own pace, which smooths out traffic spikes and lets each side scale separately.",
+    "source_url": "https://en.wikipedia.org/wiki/Message_queue",
+    "source_excerpt": "Wikipedia explains that message queuing lets applications communicate by sending messages to a queue, decoupling the sending and receiving processes in time and space."
+  },
+  {
+    "id": 8,
+    "type": "quiz",
+    "question": "How does the token bucket algorithm implement rate limiting?",
+    "answer": "Tokens are added to a bucket at a fixed rate up to a maximum capacity; each incoming request consumes one token, and the request is only allowed through if a token is available. This lets the system smooth out steady traffic while still tolerating short bursts up to the bucket's size.",
+    "source_url": "https://en.wikipedia.org/wiki/Token_bucket",
+    "source_excerpt": "Wikipedia describes the token bucket algorithm as a mechanism for controlling the rate at which traffic is sent or allowed through, based on tokens accumulated at a fixed rate."
+  },
+  {
+    "id": 9,
+    "type": "fact",
+    "text": "Read replicas let a database scale read throughput by copying data from a primary node to one or more secondary nodes; reads can be spread across replicas while writes still go to the primary, though replicas may briefly lag behind.",
+    "source_url": "https://en.wikipedia.org/wiki/Replication_(computing)",
+    "source_excerpt": "Wikipedia's article on replication describes how copying data to multiple nodes improves reliability, fault-tolerance, and read scalability, often at the cost of replication lag."
+  },
+  {
+    "id": 10,
+    "type": "quiz",
+    "question": "What problem does the circuit breaker pattern solve in a system with many service-to-service calls?",
+    "answer": "It stops a caller from repeatedly hammering a downstream service that is already failing or timing out. After enough failures the circuit 'trips' and calls fail fast (or fall back) without hitting the struggling service, giving it room to recover instead of being overwhelmed by retries.",
+    "source_url": "https://martinfowler.com/bliki/CircuitBreaker.html",
+    "source_excerpt": "Martin Fowler describes the circuit breaker as a pattern that wraps a protected function call and monitors for failures, tripping to stop further calls once failures cross a threshold."
+  },
+  {
+    "id": 11,
+    "type": "fact",
+    "text": "Eventual consistency means that after writes stop, all replicas of a distributed data store will converge to the same value given enough time, but a read immediately after a write may briefly return stale data.",
+    "source_url": "https://en.wikipedia.org/wiki/Eventual_consistency",
+    "source_excerpt": "Wikipedia defines eventual consistency as a consistency model guaranteeing that, if no new updates are made, all accesses will eventually return the last updated value."
+  },
+  {
+    "id": 12,
+    "type": "quiz",
+    "question": "What's the practical difference between scaling a service horizontally versus vertically?",
+    "answer": "Vertical scaling adds more resources (CPU, RAM) to a single existing machine, which is simple but hits a hardware ceiling and creates a single point of failure. Horizontal scaling adds more machines running the same service behind a load balancer, which has no fixed ceiling but requires the service to be designed to run as multiple independent instances.",
+    "source_url": "https://en.wikipedia.org/wiki/Scalability",
+    "source_excerpt": "Wikipedia's article on scalability distinguishes scaling up (vertical, adding resources to a single node) from scaling out (horizontal, adding more nodes)."
+  }
+]
