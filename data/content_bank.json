@@ -125,5 +125,42 @@
     "source_url": "https://www.cloudflare.com/learning/cdn/glossary/anycast-network/",
     "source_excerpt": "Anycast directs incoming client traffic to the nearest operating data center over BGP, improving global performance and load distribution.",
     "text": "Anycast BGP routing allows multiple physically dispersed edge servers to advertise and share the exact same IP address. Routers automatically direct client packets along the shortest topological path, reducing latency and naturally absorbing large-scale DDoS attacks by scattering traffic across global points of presence."
+  },
+  {
+    "id": 18,
+    "type": "fact",
+    "source_url": "https://en.wikipedia.org/wiki/Log-structured_merge-tree",
+    "source_excerpt": "LSM-trees provide significantly faster write throughput than B-trees by buffering writes in memory and writing sequentially to storage files, periodically merging SSTables in the background.",
+    "text": "Log-Structured Merge-trees (LSM-trees) optimize write throughput by writing new data sequentially to an append-only log and an in-memory memtable, deferring disk updates to periodic background compaction. This avoids costly random disk I/O at write time at the cost of higher read amplification."
+  },
+  {
+    "id": 19,
+    "type": "quiz",
+    "source_url": "https://en.wikipedia.org/wiki/Gossip_protocol",
+    "source_excerpt": "Gossip protocols are decentralized communication protocols where nodes share state with randomly chosen peers, achieving eventual consistency across a distributed system through peer-to-peer data dissemination.",
+    "question": "How does the Gossip Protocol facilitate node discovery and failure detection in decentralized peer-to-peer systems?",
+    "answer": "Nodes periodically transmit their state metadata to a small, randomly selected subset of neighboring peers. This causes state and membership updates to spread exponentially across the entire cluster without requiring a centralized coordinator."
+  },
+  {
+    "id": 20,
+    "type": "fact",
+    "source_url": "https://en.wikipedia.org/wiki/Vector_clock",
+    "source_excerpt": "A vector clock is an algorithm for generating a partial ordering of events in a distributed system and detecting causality violations by tracking version vectors among participating nodes.",
+    "text": "Vector clocks track causality between events in a distributed system by maintaining an array of logical timestamps across all nodes. Unlike physical clocks, they allow systems to definitively determine whether one event preceded another or if two operations happened concurrently and require conflict resolution."
+  },
+  {
+    "id": 21,
+    "type": "quiz",
+    "source_url": "https://en.wikipedia.org/wiki/Cache_stampede",
+    "source_excerpt": "A cache stampede happens when multiple requests simultaneously trigger expensive database queries after a cache key expires; locking and probabilistic early recomputation algorithms prevent backend saturation.",
+    "question": "What is a cache stampede (or thundering herd problem), and how can it be mitigated?",
+    "answer": "A cache stampede occurs when a high-traffic cache entry expires and hundreds of incoming concurrent requests simultaneously miss the cache, overwhelming the backing database with duplicate queries. It can be mitigated by using distributed mutex locks so only one request recomputes the value, or via probabilistic early expiration (XFetch)."
+  },
+  {
+    "id": 22,
+    "type": "fact",
+    "source_url": "https://en.wikipedia.org/wiki/Reactive_Streams",
+    "source_excerpt": "Reactive Streams provides a standard for asynchronous stream processing with non-blocking backpressure, allowing consumers to dynamically signal demand to publishers so memory buffers are not overwhelmed.",
+    "text": "Backpressure is a flow-control mechanism where an overwhelmed downstream consumer signals an upstream producer to slow down or pause message delivery. This prevents out-of-memory crashes and cascading failures across processing pipelines by keeping data flow within the system's operational capacity."
   }
 ]
