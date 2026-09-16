@@ -79,3 +79,28 @@ def test_save_and_load_state_round_trip(tmp_path):
     save_state(path, {3, 1, 2})
 
     assert load_state(path) == {1, 2, 3}
+
+
+def test_state_round_trips_last_sent_date_and_keeps_it_when_omitted(tmp_path):
+    import datetime as dt
+
+    from system_design_app.content_bank import load_last_sent_date
+
+    path = tmp_path / "state.json"
+    assert load_last_sent_date(path) is None
+    save_state(path, {1, 2}, last_sent_date=dt.date(2026, 9, 16))
+    assert load_last_sent_date(path) == dt.date(2026, 9, 16)
+    assert load_state(path) == {1, 2}
+    # Saving without a date keeps the existing one (old-style callers).
+    save_state(path, {1, 2, 3})
+    assert load_last_sent_date(path) == dt.date(2026, 9, 16)
+    assert load_state(path) == {1, 2, 3}
+
+
+def test_legacy_state_without_date_still_loads(tmp_path):
+    from system_design_app.content_bank import load_last_sent_date
+
+    path = tmp_path / "state.json"
+    path.write_text('{"sent_ids": [4, 5]}')
+    assert load_state(path) == {4, 5}
+    assert load_last_sent_date(path) is None

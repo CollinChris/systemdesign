@@ -22,12 +22,16 @@ Fill in `.env`:
    `https://api.telegram.org/bot<TOKEN>/getUpdates` in a browser and read
    `message.chat.id` from the JSON response (or ask
    [@userinfobot](https://t.me/userinfobot)). Put it in `TELEGRAM_CHAT_ID`.
-3. **Optional — `GEMINI_API_KEY`**: if set, the app automatically
-   generates and appends new fact/quiz entries to `data/content_bank.json`
-   via the Gemini API whenever fewer than 3 unsent entries remain. Get a
-   free key (no payment method required) at
-   [Google AI Studio](https://aistudio.google.com/apikey). Leave it blank
-   to rely solely on the curated content bank.
+3. **Optional — `GEMINI_API_KEY`**: if set, the app tops up
+   `data/content_bank.json` via the Gemini API whenever fewer than 7 unsent
+   entries remain, adding 10 at a time. Transient errors (429/5xx) are
+   retried with backoff, then the request falls back to a second model
+   (`GEMINI_FALLBACK_MODEL`, default `gemini-flash-lite-latest`; free-tier
+   quotas are per model). If every attempt fails, the day's entry is still
+   sent, a short Telegram note reports the failure, and the run exits
+   non-zero so it shows red in Actions. Get a free key (no payment method
+   required) at [Google AI Studio](https://aistudio.google.com/apikey).
+   Leave it blank to rely solely on the curated content bank.
 
 ## Running manually
 
@@ -35,9 +39,12 @@ Fill in `.env`:
 uv run system-design-app
 ```
 
-Sends one notification and exits. Run it again and a different (unsent)
-entry is picked; once every entry has been sent, the pool reshuffles and
-cycles again.
+Sends one notification and exits. A second run on the same Singapore date
+does nothing (the date is recorded in `data/state.json`), which is what lets
+an external cron and GitHub's own schedule both trigger the workflow without
+double-sending; pass `--force` to send anyway. Each send picks a different
+unsent entry; once every entry has been sent, the pool reshuffles and cycles
+again.
 
 ## Growing the content bank
 

@@ -1,5 +1,10 @@
 name: Daily System Design Notification
 
+# Two triggers, one send: an external cron calls workflow_dispatch at 05:00 UTC
+# (13:00 Singapore) because GitHub's schedule routinely fires hours late; the
+# schedule below is the fallback. The app records the Singapore date of each
+# send in data/state.json and exits quietly if today's already went out, so
+# both firing is harmless.
 on:
   schedule:
     # 05:00 UTC = 13:00 (1pm) Asia/Singapore, no DST to account for.
@@ -28,6 +33,9 @@ jobs:
         run: uv run system-design-app
 
       - name: Persist content bank and send history
+        # Runs even when the app exits non-zero: a failed Gemini top-up still
+        # sends the day's entry and updates state, and that must be committed.
+        if: always()
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"

@@ -14,8 +14,13 @@ CONTENT_BANK_PATH = DATA_DIR / "content_bank.json"
 STATE_PATH = DATA_DIR / "state.json"
 
 DEFAULT_GEMINI_MODEL = "gemini-flash-latest"
-LOW_STOCK_THRESHOLD = 3
-GENERATE_BATCH_SIZE = 5
+# Free-tier quotas are per model (20 requests/model/day, Sep 2026), so a second
+# model is a second budget as well as a fallback for "high demand" 503s.
+DEFAULT_GEMINI_FALLBACK_MODEL = "gemini-flash-lite-latest"
+# Top up while there is still a week of stock at one send a day, and add
+# enough to make the trigger fire rarely rather than every few days.
+LOW_STOCK_THRESHOLD = 7
+GENERATE_BATCH_SIZE = 10
 
 
 class ConfigError(RuntimeError):
@@ -28,6 +33,7 @@ class Config:
     telegram_chat_id: str
     gemini_api_key: str | None
     gemini_model: str = DEFAULT_GEMINI_MODEL
+    gemini_fallback_model: str | None = DEFAULT_GEMINI_FALLBACK_MODEL
 
 
 def load_config(env_file: Path | None = None) -> Config:
@@ -43,10 +49,15 @@ def load_config(env_file: Path | None = None) -> Config:
 
     api_key = os.environ.get("GEMINI_API_KEY", "").strip() or None
     model = os.environ.get("GEMINI_MODEL", "").strip() or DEFAULT_GEMINI_MODEL
+    fallback = (
+        os.environ.get("GEMINI_FALLBACK_MODEL", "").strip()
+        or DEFAULT_GEMINI_FALLBACK_MODEL
+    )
 
     return Config(
         telegram_bot_token=token,
         telegram_chat_id=chat_id,
         gemini_api_key=api_key,
         gemini_model=model,
+        gemini_fallback_model=fallback or None,
     )
