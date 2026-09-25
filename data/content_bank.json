@@ -162,5 +162,80 @@
     "source_url": "https://en.wikipedia.org/wiki/Reactive_Streams",
     "source_excerpt": "Reactive Streams provides a standard for asynchronous stream processing with non-blocking backpressure, allowing consumers to dynamically signal demand to publishers so memory buffers are not overwhelmed.",
     "text": "Backpressure is a flow-control mechanism where an overwhelmed downstream consumer signals an upstream producer to slow down or pause message delivery. This prevents out-of-memory crashes and cascading failures across processing pipelines by keeping data flow within the system's operational capacity."
+  },
+  {
+    "id": 23,
+    "type": "fact",
+    "source_url": "https://www.toptal.com/big-data/consistent-hashing",
+    "source_excerpt": "Consistent hashing is a specialized hashing technique that ensures only a K/N number of keys need to be remapped when the number of nodes changes.",
+    "text": "Consistent hashing minimizes the number of keys that need to be remapped when nodes are added or removed in a distributed cache or database cluster. Instead of using a simple modulo operation, both keys and nodes are mapped onto a circular ring, and a key is assigned to the next available node clockwise."
+  },
+  {
+    "id": 24,
+    "type": "quiz",
+    "source_url": "https://www.postgresql.org/docs/current/mvcc.html",
+    "source_excerpt": "PostgreSQL uses Multi-Version Concurrency Control (MVCC) to keep data consistent without locking reads during writes.",
+    "question": "What is the primary difference between pessimistic and optimistic concurrency control in distributed databases?",
+    "answer": "Pessimistic locking assumes conflicts are likely and acquires locks on data before reads or writes, reducing concurrency. Optimistic concurrency control assumes conflicts are rare, allowing transactions to proceed without locks and validating them for conflicts only at commit time."
+  },
+  {
+    "id": 25,
+    "type": "fact",
+    "source_url": "https://kafka.apache.org/documentation/#design",
+    "source_excerpt": "Kafka relies heavily on the file system for storage and caching, and depends on page cache for fast read and write operations.",
+    "text": "Kafka achieves high throughput by leveraging sequential disk I/O, writing messages to an append-only log, and utilizing the Linux page cache extensively. Additionally, it uses zero-copy optimization to transfer data from the disk directly to the network socket via the kernel space."
+  },
+  {
+    "id": 26,
+    "type": "quiz",
+    "source_url": "https://martin.kleppmann.com/2017/08/24/bki06-distributed-data.html",
+    "source_excerpt": "Multi-leader replication allows multiple nodes to accept writes, creating the complexity of write conflict resolution.",
+    "question": "How does multi-master replication differ from master-slave replication, and what is the primary challenge it introduces?",
+    "answer": "Multi-master replication allows writes to occur on any node, whereas master-slave directs all writes to a single primary node. The primary challenge is handling write conflicts and resolving concurrent updates to the same data across different nodes."
+  },
+  {
+    "id": 27,
+    "type": "fact",
+    "source_url": "https://cloud.google.com/architecture/rate-limiting-strategies-techniques",
+    "source_excerpt": "The leaky bucket algorithm holds requests in a queue and processes them at a fixed, steady rate to prevent downstream overload.",
+    "text": "The Leaky Bucket algorithm smooths out traffic bursts by enforcing a constant processing rate for incoming requests. If requests arrive faster than the bucket's output capacity, they are queued until space becomes available or dropped if the queue overflows."
+  },
+  {
+    "id": 28,
+    "type": "quiz",
+    "source_url": "https://queue.acm.org/detail.cfm?id=2354406",
+    "source_excerpt": "Variability is inevitable in large distributed systems, and as fan-out increases, tail latency becomes the dominant factor affecting performance.",
+    "question": "What is tail latency, and why is it particularly important to measure in large-scale distributed systems?",
+    "answer": "Tail latency refers to high-percentile response times (like p99 or p99.9). It is crucial because as systems aggregate requests across hundreds of microservices, a single slow service call at the tail can disproportionately degrade the end-user experience."
+  },
+  {
+    "id": 29,
+    "type": "fact",
+    "source_url": "https://opentelemetry.io/docs/concepts/signals/traces/",
+    "source_excerpt": "A trace tracks the progression of a single request as it is handled by services in a distributed system, represented as a tree of spans.",
+    "text": "Distributed tracing assigns a unique trace ID and span IDs to requests as they propagate across multiple microservices. This metadata allows developers to visualize execution paths, measure latency breakdowns, and pinpoint bottlenecks across distributed architectures."
+  },
+  {
+    "id": 30,
+    "type": "quiz",
+    "source_url": "https://web.dev/stale-while-revalidate/",
+    "source_excerpt": "The stale-while-revalidate HTTP cache directive allows content to be served instantly from cache while asynchronously updating it in the background.",
+    "question": "What problem does stale-while-revalidate cache control header solve in HTTP caching?",
+    "answer": "It serves stale content immediately to ensure fast response times while asynchronously fetching an updated version in the background to populate the cache for subsequent requests. This eliminates the latency penalty of waiting for a fresh network fetch."
+  },
+  {
+    "id": 31,
+    "type": "fact",
+    "source_url": "https://www.sqlite.org/wal.html",
+    "source_excerpt": "Write-ahead logging helps ensure atomicity and durability by writing changes to a log file before applying them to the main database.",
+    "text": "Write-Ahead Logging (WAL) ensures database durability by recording changes to disk before the actual database pages are modified. If a system crashes, the recovery process replays the WAL entries to restore the database to a consistent state."
+  },
+  {
+    "id": 32,
+    "type": "quiz",
+    "source_url": "https://istio.io/latest/about/service-mesh/",
+    "source_excerpt": "A service mesh is a transparent way to add reliable, secure, and observable features to cloud-native applications.",
+    "question": "What is service mesh, and what network concerns does it offload from application code?",
+    "answer": "A service mesh is a dedicated infrastructure layer for handling service-to-service communication. It offloads concerns like mutual TLS encryption, service discovery, traffic routing, retries, and observability away from the application code."
   }
 ]
