@@ -237,5 +237,80 @@
     "source_excerpt": "A service mesh is a transparent way to add reliable, secure, and observable features to cloud-native applications.",
     "question": "What is service mesh, and what network concerns does it offload from application code?",
     "answer": "A service mesh is a dedicated infrastructure layer for handling service-to-service communication. It offloads concerns like mutual TLS encryption, service discovery, traffic routing, retries, and observability away from the application code."
+  },
+  {
+    "id": 33,
+    "type": "quiz",
+    "source_url": "https://blog.cloudflare.com/counting-things-a-lot-of-different-things/",
+    "source_excerpt": "Cloudflare describes rate limiting approaches, noting that fixed window counters suffer from edge bursts while sliding window log methods guarantee exact limits at the cost of tracking timestamps.",
+    "question": "How does the sliding window log algorithm differ from the fixed window counter algorithm in rate limiting?",
+    "answer": "Fixed window counters count requests within static time intervals and can allow up to twice the configured rate limit around window boundary edges. The sliding window log records individual request timestamps to enforce precise rate limits across any rolling timeframe, trading off higher memory consumption for strict accuracy."
+  },
+  {
+    "id": 34,
+    "type": "fact",
+    "source_url": "https://en.wikipedia.org/wiki/B%2B_tree",
+    "source_excerpt": "A B+ tree stores all records at the leaf level with linked leaves, maximizing node fanout and providing efficient linear traversal for range queries.",
+    "text": "B+ Trees store all actual record values or data pointers exclusively in leaf nodes, reserving internal nodes purely for routing keys. This structure maximizes the fanout factor and reduces tree depth, while sequential links between leaf nodes allow highly efficient range scans without traversing parent nodes."
+  },
+  {
+    "id": 35,
+    "type": "quiz",
+    "source_url": "https://martinfowler.com/bliki/CircuitBreaker.html",
+    "source_excerpt": "Martin Fowler explains that circuit breakers protect distributed systems by wrapping protected function calls in a state machine that transitions between Closed, Open, and Half-Open.",
+    "question": "What is the primary purpose of the Circuit Breaker pattern in microservice architectures, and what are its three states?",
+    "answer": "The Circuit Breaker pattern prevents an application from repeatedly calling a failing remote dependency, avoiding cascading failures and thread exhaustion. It operates across three states: Closed (traffic flows normally), Open (calls fail immediately without invoking the dependency), and Half-Open (a small volume of trial traffic tests whether the dependency has recovered)."
+  },
+  {
+    "id": 36,
+    "type": "fact",
+    "source_url": "https://research.google/pubs/pub39966/",
+    "source_excerpt": "Spanner's TrueTime API directly represents clock skew as a bounded interval, enabling externally consistent distributed transactions by waiting out the uncertainty window.",
+    "text": "Google Spanner utilizes the TrueTime API, which exposes clock uncertainty explicitly as a time interval [earliest, latest] bounded by synchronized atomic clocks and GPS receivers. By waiting out this uncertainty window before committing a transaction, Spanner guarantees globally linearizable transactions without requiring distributed cross-datacenter locking."
+  },
+  {
+    "id": 37,
+    "type": "quiz",
+    "source_url": "https://www.nginx.com/blog/nginx-power-of-two-choices-load-balancing-algorithm/",
+    "source_excerpt": "The Power of Two Choices balances load by comparing two randomly chosen upstream servers, preventing centralized bottlenecks and reducing peak queue lengths exponentially.",
+    "question": "What is the 'Power of Two Random Choices' load balancing algorithm, and why is it often preferred over simple Least Connections?",
+    "answer": "The algorithm selects two backend servers at random and routes the request to whichever of the two has fewer active connections. This eliminates the need for global state synchronization and avoids the 'herd effect,' where all clients independently target the same minimally loaded server at the same instant."
+  },
+  {
+    "id": 38,
+    "type": "fact",
+    "source_url": "https://en.wikipedia.org/wiki/PACELC_theorem",
+    "source_excerpt": "PACELC posits that in a system that has partitions one must choose between availability and consistency, else one must choose between latency and consistency.",
+    "text": "The PACELC theorem expands on the CAP theorem by postulating that even if a distributed system does not experience a network Partition (P), it must still choose between Latency (L) and Consistency (C). Thus, under normal operating conditions (Else), architectures like DynamoDB or MongoDB must trade off update latency to provide strong read consistency."
+  },
+  {
+    "id": 39,
+    "type": "quiz",
+    "source_url": "https://web.dev/articles/performance-http2",
+    "source_excerpt": "HTTP/2 introduces binary framing and stream multiplexing, enabling full request and response reuse over a single TCP connection without serialization delays.",
+    "question": "How does HTTP/2 stream multiplexing improve the performance of RPC frameworks like gRPC compared to HTTP/1.1?",
+    "answer": "HTTP/2 multiplexing allows multiple concurrent, bidirectional request and response streams to travel over a single underlying TCP connection using binary framing. This eliminates application-level head-of-line blocking and removes the overhead of maintaining large connection pools or repeatedly performing TLS handshakes."
+  },
+  {
+    "id": 40,
+    "type": "fact",
+    "source_url": "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-dead-letter-queues.html",
+    "source_excerpt": "Dead-letter queues isolate messages that cannot be processed successfully to prevent them from blocking the queue and allow developers to inspect failure causes.",
+    "text": "A Dead Letter Queue (DLQ) isolates unprocessable or malformed messages after a consumer exceeds a preconfigured number of retry attempts. Routing toxic 'poison pill' messages to a DLQ prevents consumer threads from stalling the entire queue while retaining the original message payloads for debugging and replaying."
+  },
+  {
+    "id": 41,
+    "type": "quiz",
+    "source_url": "https://martin.kleppmann.com/2016/02/08/how-to-do-distributed-locking.html",
+    "source_excerpt": "Martin Kleppmann argues that distributed locks without fencing tokens cannot guarantee mutual exclusion if a client pauses, as a storage service must validate monotonically increasing tokens.",
+    "question": "Why are fencing tokens required when using distributed locks to guard access to shared storage resources?",
+    "answer": "A client holding a distributed lock might pause unexpectedly due to garbage collection or a network partition, causing its lock lease to expire while it still assumes it owns the lock. A fencing token\u2014a monotonically incremented identifier sent with each write\u2014ensures the storage layer rejects out-of-order writes from clients with stale lock leases."
+  },
+  {
+    "id": 42,
+    "type": "fact",
+    "source_url": "https://debezium.io/documentation/reference/stable/architecture.html",
+    "source_excerpt": "Debezium captures row-level changes from database transaction logs without polling, streaming committed changes to consumers like Apache Kafka reliably.",
+    "text": "Change Data Capture (CDC) reads database transaction logs directly to capture row-level modifications as an asynchronous, ordered event stream. This allows applications to update downstream search indexes, analytics caches, and microservices in real time without placing query overhead or polling queries on the primary transactional database."
   }
 ]
