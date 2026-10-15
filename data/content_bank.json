@@ -312,5 +312,80 @@
     "source_url": "https://debezium.io/documentation/reference/stable/architecture.html",
     "source_excerpt": "Debezium captures row-level changes from database transaction logs without polling, streaming committed changes to consumers like Apache Kafka reliably.",
     "text": "Change Data Capture (CDC) reads database transaction logs directly to capture row-level modifications as an asynchronous, ordered event stream. This allows applications to update downstream search indexes, analytics caches, and microservices in real time without placing query overhead or polling queries on the primary transactional database."
+  },
+  {
+    "id": 43,
+    "type": "fact",
+    "source_url": "https://github.com/facebook/rocksdb/wiki/RocksDB-Bloom-Filter",
+    "source_excerpt": "RocksDB uses Bloom filters stored in memory or block cache to quickly check if an SST file could contain a specific key, bypassing unnecessary disk reads.",
+    "text": "Log-Structured Merge-tree (LSM-tree) storage engines place in-memory Bloom filters ahead of SSTables to avoid costly disk reads for non-existent keys. Because Bloom filters provide definitive negative answers, queries for missing keys terminate immediately without accessing disk storage."
+  },
+  {
+    "id": 44,
+    "type": "quiz",
+    "source_url": "https://raft.github.io/raft.pdf",
+    "source_excerpt": "Raft uses randomized election timeouts to ensure that split votes are rare and resolved quickly during leader election.",
+    "question": "How does the Raft consensus algorithm prevent split votes from stalling leader election indefinitely?",
+    "answer": "Raft assigns randomized election timeouts (typically between 150ms and 300ms) to each node. This ensures that one candidate usually times out and solicits votes before peers, achieving a majority quorum before a split vote can recur."
+  },
+  {
+    "id": 45,
+    "type": "fact",
+    "source_url": "https://vldb.org/pvldb/vol8/p886-vldb2015.pdf",
+    "source_excerpt": "The researchers present XFetch, an optimal probabilistic early expiration algorithm that avoids cache stampedes and eliminates the need for locking.",
+    "text": "The XFetch probabilistic early expiration algorithm prevents cache stampedes by recomputing cached entries in the background before they expire. As TTL elapses, incoming read requests face an increasing probability of triggering an asynchronous cache refresh while continuing to serve the existing value."
+  },
+  {
+    "id": 46,
+    "type": "quiz",
+    "source_url": "https://www.cloudflare.com/learning/cdn/glossary/anycast-network/",
+    "source_excerpt": "Anycast distributes user requests across multiple data centers using a shared IP address via BGP routing, rather than relying on DNS-level geographic lookups.",
+    "question": "What is the primary operational difference between Anycast routing and GeoDNS for directing users to the nearest data center?",
+    "answer": "GeoDNS resolves domain names to different IP addresses based on the client resolver's geographic location at the application layer, which can be distorted by DNS caching. Anycast advertises the same IP address from multiple locations via BGP at the network layer, allowing Internet routers to dynamically send packets to the topologically closest edge location."
+  },
+  {
+    "id": 47,
+    "type": "quiz",
+    "source_url": "https://microservices.io/patterns/data/saga.html",
+    "source_excerpt": "Sagas manage distributed transactions using an asynchronous sequence of local transactions and compensating transactions rather than blocking multi-system database locks.",
+    "question": "Why is the Saga pattern preferred over Two-Phase Commit (2PC) for coordinating distributed transactions across microservices?",
+    "answer": "Two-Phase Commit is a blocking protocol that holds locks across distributed databases until completion, creating latency bottlenecks and availability hazards under high concurrency. Sagas split workflows into sequences of local transactions coupled with compensating rollback actions, favoring availability and eventual consistency."
+  },
+  {
+    "id": 48,
+    "type": "fact",
+    "source_url": "https://www.cs.cornell.edu/home/rvr/papers/flowgossip.pdf",
+    "source_excerpt": "Epidemic and gossip algorithms achieve robust decentralized state dissemination with message propagation completing in logarithmic time relative to cluster size.",
+    "text": "Gossip protocols spread cluster membership and node status across distributed systems in O(log N) communication rounds by exchanging state with a small set of random peers. This decentralized design removes centralized coordination bottlenecks and provides robust failure detection that scales to thousands of nodes."
+  },
+  {
+    "id": 49,
+    "type": "quiz",
+    "source_url": "https://martinfowler.com/articles/patterns-of-distributed-systems/lamport-clock.html",
+    "source_excerpt": "While Lamport Clocks only provide a partial ordering of events, Vector Clocks track per-node logical times to determine whether events are causally dependent or concurrent.",
+    "question": "What fundamental capability do Vector Clocks provide that scalar Lamport Timestamps cannot in distributed systems?",
+    "answer": "Vector Clocks can detect whether two events are causally related or concurrent (conflicting) by maintaining a vector of logical clocks across all nodes. Scalar Lamport Timestamps create an arbitrary total order and cannot distinguish between causal succession and concurrent operations."
+  },
+  {
+    "id": 50,
+    "type": "fact",
+    "source_url": "https://docs.fastly.com/en/guides/purging-with-surrogate-keys",
+    "source_excerpt": "Surrogate keys enable systems to label cached content with metadata tags and purge all related web assets simultaneously through a single targeted API request.",
+    "text": "Surrogate keys (also known as cache tags) allow CDNs to invalidate cached web responses in bulk by associating objects with one or more application-defined identifier tags. When backend data changes, a single API purge targeting the surrogate key invalidates thousands of related edge-cached URLs simultaneously."
+  },
+  {
+    "id": 51,
+    "type": "fact",
+    "source_url": "https://netflixtechblog.com/auto-shedding-concurrency-limits-7c1524316d3e",
+    "source_excerpt": "Netflix adapts TCP congestion control techniques to compute dynamic concurrency limits on services based on measured latency, shedding traffic before threads exhaust.",
+    "text": "Adaptive concurrency limits prevent cascading microservice outages by using observed RPC round-trip latency to dynamically adjust in-flight request limits based on TCP congestion algorithms like TCP Vegas. When downstream dependencies saturate and queue latency grows, the permitted concurrency shrinks dynamically to shed excess requests early."
+  },
+  {
+    "id": 52,
+    "type": "quiz",
+    "source_url": "https://dataintensive.net/",
+    "source_excerpt": "Read-after-write consistency can be achieved by reading freshly written user data directly from the leader or by inspecting replica replication offsets before serving reads.",
+    "question": "How can an application ensure read-after-write consistency for a user when reading from asynchronously replicated read replicas?",
+    "answer": "The application can route a user's reads to the primary database for a brief window immediately following a write, or track the write's Log Sequence Number (LSN) on the client and only query replicas that have caught up to that specific LSN."
   }
 ]
