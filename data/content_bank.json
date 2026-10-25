@@ -387,5 +387,80 @@
     "source_excerpt": "Read-after-write consistency can be achieved by reading freshly written user data directly from the leader or by inspecting replica replication offsets before serving reads.",
     "question": "How can an application ensure read-after-write consistency for a user when reading from asynchronously replicated read replicas?",
     "answer": "The application can route a user's reads to the primary database for a brief window immediately following a write, or track the write's Log Sequence Number (LSN) on the client and only query replicas that have caught up to that specific LSN."
+  },
+  {
+    "id": 53,
+    "type": "fact",
+    "source_url": "https://cassandra.apache.org/_/blog/Cassandra-Bloom-Filters.html",
+    "source_excerpt": "Apache Cassandra uses Bloom filters to determine if a key exists in a specific SSTable before performing disk I/O operations, significantly reducing read latency.",
+    "text": "Bloom filters are space-efficient probabilistic data structures used to test whether an element is definitely not in a set or possibly in the set. Because they allow for a tunable rate of false positives without ever generating false negatives, they are heavily used by databases like Cassandra and LSM-tree storage engines to avoid costly disk lookups for non-existent keys."
+  },
+  {
+    "id": 54,
+    "type": "quiz",
+    "source_url": "https://www.toptal.com/big-data/consistent-hashing",
+    "source_excerpt": "Consistent hashing minimizes key redistribution when the cluster topology changes, preventing widespread cache misses in distributed storage systems.",
+    "question": "What is the primary advantage of Consistent Hashing over traditional modulo-based hashing in distributed caching systems?",
+    "answer": "Consistent hashing maps both servers and keys onto a circular ring, ensuring that adding or removing a node only redistributes a minimal fraction of keys (K/N). Traditional modulo hashing requires rehashing almost all keys when the pool size changes, causing massive cache invalidation storms."
+  },
+  {
+    "id": 55,
+    "type": "fact",
+    "source_url": "https://stripe.com/blog/rate-limiters",
+    "source_excerpt": "Stripe's engineering blog discusses using the token bucket algorithm to handle traffic bursts gracefully while protecting downstream microservices from overload.",
+    "text": "The Token Bucket algorithm allows for bursty traffic while enforcing a strict average rate limit. Tokens are added to a bucket of fixed capacity at a constant rate, and every incoming request consumes a token; if the bucket is empty, the request is throttled."
+  },
+  {
+    "id": 56,
+    "type": "quiz",
+    "source_url": "https://blog.cloudflare.com/the-road-to-quic/",
+    "source_excerpt": "Cloudflare explains that QUIC handles network transitions seamlessly by binding sessions to a connection ID instead of a traditional transport layer four-tuple.",
+    "question": "How does QUIC protocol's connection migration feature solve connection drops in mobile environments?",
+    "answer": "QUIC uses a connection ID rather than a tuple of IP address and port to identify connections. When a mobile device switches from Wi-Fi to cellular, the underlying IP changes, but the connection ID remains identical, preventing dropped TCP connections and expensive handshakes."
+  },
+  {
+    "id": 57,
+    "type": "fact",
+    "source_url": "https://www.w3.org/TR/trace-context/",
+    "source_excerpt": "The W3C Trace Context specification standardizes how distributed tracing systems propagate correlation data across process and network boundaries.",
+    "text": "Distributed tracing tools like Jaeger and Zipkin propagate trace and span identifiers via HTTP headers (such as B3 or W3C Trace Context). This metadata allows monitoring systems to reconstruct end-to-end request latencies across dozens of asynchronous microservice boundaries."
+  },
+  {
+    "id": 58,
+    "type": "quiz",
+    "source_url": "https://aws.amazon.com/caching/backends/",
+    "source_excerpt": "AWS architecture guidance details how write-back caching improves write performance at the expense of data durability during sudden node failures.",
+    "question": "What is the difference between Write-Through and Write-Back (Write-Behind) caching strategies regarding latency and durability?",
+    "answer": "Write-through caching writes data to the cache and the backing store simultaneously, prioritizing durability over write latency. Write-back caching writes only to the cache first and asynchronously flushes updates to disk later, offering very low write latency but risking data loss if the cache node crashes before flushing."
+  },
+  {
+    "id": 59,
+    "type": "fact",
+    "source_url": "https://engineering.fb.com/2013/07/31/core-data/scaling-mysql-databases-how-facebook-stores-billions-of-photos/",
+    "source_excerpt": "Facebook engineering highlights how directory-based lookups help manage shard routing efficiently without relying on costly multi-partition queries.",
+    "text": "Horizontal database sharding introduces significant complexity for cross-partition queries and joins. To mitigate this, database architects often use a dedicated routing service or implement directory-based sharding to map entities directly to physical shards."
+  },
+  {
+    "id": 60,
+    "type": "quiz",
+    "source_url": "https://kafka.apache.org/documentation/#intro_topics",
+    "source_excerpt": "Kafka documentation explains that partitioning enables topics to scale beyond the storage limits of a single broker and allows parallel consumption.",
+    "question": "Why are Kafka partitions critical for achieving high throughput in distributed event streaming?",
+    "answer": "Partitions are the unit of parallelism and storage in Apache Kafka. By breaking a topic into multiple partitions distributed across a cluster, multiple producers can write concurrently and multiple consumer group instances can read and process messages in parallel."
+  },
+  {
+    "id": 61,
+    "type": "fact",
+    "source_url": "https://datatracker.ietf.org/doc/html/rfc1034",
+    "source_excerpt": "RFC 1034 details the standard mechanics of DNS resolution and caching behaviors that impact how quickly traffic shifting propagates globally.",
+    "text": "Domain Name System (DNS) load balancing relies on round-robin record rotation or geo-proximity weighting to distribute client requests across multiple data centers. However, its effectiveness is often limited by client and ISP-level DNS caching, which ignores Time-To-Live (TTL) expiration rules."
+  },
+  {
+    "id": 62,
+    "type": "quiz",
+    "source_url": "https://microservices.io/patterns/apigateway.html",
+    "source_excerpt": "Microservices.io describes the API gateway pattern as a centralized mechanism to decouple clients from internal service topologies and handle perimeter security.",
+    "question": "What is the primary purpose of using an API Gateway in a microservice architecture?",
+    "answer": "An API Gateway acts as a single reverse proxy entry point for all client requests, handling cross-cutting concerns like SSL termination, authentication, rate limiting, request transformation, and load balancing before routing traffic to internal microservices."
   }
 ]
