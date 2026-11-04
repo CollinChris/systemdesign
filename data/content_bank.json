@@ -462,5 +462,80 @@
     "source_excerpt": "Microservices.io describes the API gateway pattern as a centralized mechanism to decouple clients from internal service topologies and handle perimeter security.",
     "question": "What is the primary purpose of using an API Gateway in a microservice architecture?",
     "answer": "An API Gateway acts as a single reverse proxy entry point for all client requests, handling cross-cutting concerns like SSL termination, authentication, rate limiting, request transformation, and load balancing before routing traffic to internal microservices."
+  },
+  {
+    "id": 63,
+    "type": "fact",
+    "source_url": "https://www.postgresql.org/docs/current/wal-intro.html",
+    "source_excerpt": "PostgreSQL documentation explains that Write-Ahead Logging guarantees data durability by recording changes to a log before the main data pages are modified on disk.",
+    "text": "Write-ahead logging (WAL) ensures durability in database systems by writing sequential disk modifications before applying changes to the actual database pages. This technique optimizes disk I/O performance by turning random writes into sequential disk operations."
+  },
+  {
+    "id": 64,
+    "type": "quiz",
+    "source_url": "https://stripe.com/blog/rate-limiters",
+    "source_excerpt": "Stripe engineers highlight that sliding window logs maintain a precise request timestamp history to smooth out traffic spikes at window boundaries.",
+    "question": "How does the Sliding Window Log algorithm for rate limiting differ from the Fixed Window Counter algorithm?",
+    "answer": "The Sliding Window Log algorithm tracks every individual request timestamp in a sorted set and removes expired timestamps outside the current rolling window. This eliminates the edge-condition traffic spike vulnerability inherent in fixed window counters."
+  },
+  {
+    "id": 65,
+    "type": "fact",
+    "source_url": "https://dev.mysql.com/doc/refman/8.0/en/innodb-multi-versioning.html",
+    "source_excerpt": "MySQL documentation states that InnoDB implements MVCC to allow non-blocking read operations alongside concurrent write transactions.",
+    "text": "Multi-Version Concurrency Control (MVCC) allows database engines to maintain multiple physical versions of a single logical row, enabling readers and writers to operate concurrently without blocking each other."
+  },
+  {
+    "id": 66,
+    "type": "quiz",
+    "source_url": "https://developers.cloudflare.com/workers/learning/how-workers-works/",
+    "source_excerpt": "Cloudflare explains that executing code directly on their edge network minimizes latency by processing requests near the user.",
+    "question": "What is the primary benefit of using edge computing platforms like Cloudflare Workers or AWS Lambda@Edge for web applications?",
+    "answer": "Edge computing runs application logic geographically closer to the end user, dramatically reducing network latency and offloading traffic from origin servers."
+  },
+  {
+    "id": 67,
+    "type": "fact",
+    "source_url": "https://tools.ietf.org/html/rfc5533",
+    "source_excerpt": "The IETF standard discusses methods for identifying and replacing redundant byte sequences to conserve network bandwidth.",
+    "text": "Redundancy Elimination in wide-area network (WAN) optimization uses chunk-based data deduplication, replacing repeating byte patterns with small references to reduce transferred payload sizes."
+  },
+  {
+    "id": 68,
+    "type": "quiz",
+    "source_url": "https://etcd.io/docs/v3.5/learning/why-etcd/",
+    "source_excerpt": "The etcd documentation emphasizes its role in providing strongly consistent state storage required for reliable leader election.",
+    "question": "Why is ZooKeeper or etcd utilized in distributed systems for leader election instead of relying on a relational database?",
+    "answer": "Coordination services like etcd and ZooKeeper implement consensus algorithms such as Raft or Paxos, providing strict linearizability, ephemeral nodes, and reliable watch notifications necessary for safe distributed coordination."
+  },
+  {
+    "id": 69,
+    "type": "fact",
+    "source_url": "https://httpwg.org/specs/rfc9113.html",
+    "source_excerpt": "The HTTP/2 specification details how binary framing enables independent concurrent streams over a single transport connection.",
+    "text": "HTTP/2 multiplexing solves the head-of-line blocking problem present in HTTP/1.1 by allowing multiple concurrent request and response streams to share a single underlying TCP connection."
+  },
+  {
+    "id": 70,
+    "type": "quiz",
+    "source_url": "https://aws.amazon.com/rds/features/read-replicas/",
+    "source_excerpt": "AWS documentation explains that read replicas help scale read throughput by directing read traffic away from the primary database.",
+    "question": "What is the main advantage of utilizing read replicas in a database architecture?",
+    "answer": "Read replicas scale read-heavy workloads horizontally by offloading read queries from the primary database, improving overall application throughput and response times."
+  },
+  {
+    "id": 71,
+    "type": "fact",
+    "source_url": "https://static.googleusercontent.com/media/research.google.com/en//archive/chubby-osdi06.pdf",
+    "source_excerpt": "Google research paper on Chubby highlights lease mechanisms to handle cache consistency and avoid stale reads in distributed environments.",
+    "text": "Lease-based cache invalidation mechanisms assign a time-to-live or expiration lease to cached data items, forcing clients or proxy caches to re-validate or fetch fresh data once the lease expires."
+  },
+  {
+    "id": 72,
+    "type": "quiz",
+    "source_url": "https://pulsar.apache.org/docs/next/concepts-architecture-overview/",
+    "source_excerpt": "Apache Pulsar documentation outlines its multi-tenant architecture with isolated namespaces and tiered storage management.",
+    "question": "How does a distributed message queue like Apache Pulsar achieve multi-tenancy isolation compared to Apache Kafka?",
+    "answer": "Apache Pulsar separates compute and storage layers and uses hierarchical namespaces and tenants natively, allowing fine-grained isolation and quota management across different organizational units."
   }
 ]
