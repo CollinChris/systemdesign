@@ -537,5 +537,80 @@
     "source_excerpt": "Apache Pulsar documentation outlines its multi-tenant architecture with isolated namespaces and tiered storage management.",
     "question": "How does a distributed message queue like Apache Pulsar achieve multi-tenancy isolation compared to Apache Kafka?",
     "answer": "Apache Pulsar separates compute and storage layers and uses hierarchical namespaces and tenants natively, allowing fine-grained isolation and quota management across different organizational units."
+  },
+  {
+    "id": 73,
+    "type": "fact",
+    "source_url": "https://www.allthingsdistributed.com/2008/12/eventually_consistent.html",
+    "source_excerpt": "Vector clocks track causality by incrementing version counters for each node involved in state updates, allowing detection of concurrent writes.",
+    "text": "Vector clocks are used in distributed systems to determine the causal ordering of events without requiring synchronized physical clocks across nodes."
+  },
+  {
+    "id": 74,
+    "type": "quiz",
+    "source_url": "https://raft.github.io/raft.pdf",
+    "source_excerpt": "To prevent split votes, election timeouts are chosen randomly from a fixed interval, ensuring that candidates rarely split the quorum.",
+    "question": "How does Raft handle split-vote scenarios during leader election?",
+    "answer": "Raft uses randomized election timeouts so that nodes time out at different intervals, significantly reducing the probability of multiple candidates splitting the votes."
+  },
+  {
+    "id": 75,
+    "type": "fact",
+    "source_url": "https://www.cs.cornell.edu/home/rvr/papers/gossip.pdf",
+    "source_excerpt": "Epidemic or gossip algorithms provide reliable data dissemination across large networks with high resilience to individual node failures.",
+    "text": "Gossip protocols enable decentralized peer-to-peer cluster membership and failure detection by having nodes periodically exchange state information with random neighbors."
+  },
+  {
+    "id": 76,
+    "type": "quiz",
+    "source_url": "https://learn.microsoft.com/en-us/azure/architecture/patterns/bulkhead",
+    "source_excerpt": "By partitioning instance pools, failures in one service are contained, preventing cascading failures across the entire system.",
+    "question": "What is the primary purpose of utilizing a bulkhead pattern in microservices architecture?",
+    "answer": "The bulkhead pattern isolates elements of an application into pools so that if one service fails, the others will continue to function without exhausting shared resources."
+  },
+  {
+    "id": 77,
+    "type": "fact",
+    "source_url": "https://datatracker.ietf.org/doc/html/rfc5681",
+    "source_excerpt": "TCP congestion control uses slow start to safely probe the network path capacity by doubling the congestion window every round-trip time.",
+    "text": "TCP slow start dynamically increases the congestion window size upon establishing a connection to avoid overwhelming intermediate network routers."
+  },
+  {
+    "id": 78,
+    "type": "quiz",
+    "source_url": "https://www.cs.umb.edu/~poneil/lsmtree.pdf",
+    "source_excerpt": "The LSM-tree provides high insert throughput by deferring and batching index restructuring through tiered compaction processes.",
+    "question": "Why are LSM-tree (Log-Structured Merge-tree) storage engines preferred over B-Trees for write-heavy workloads?",
+    "answer": "LSM-trees optimize writes by appending mutations to sequential disk files and memory tables first, transforming random disk writes into high-throughput sequential writes."
+  },
+  {
+    "id": 79,
+    "type": "fact",
+    "source_url": "https://dev.mysql.com/doc/refman/8.0/en/connection-pooling.html",
+    "source_excerpt": "Pooling maintains open database connections in a cache, drastically reducing latency and resource consumption under high concurrency.",
+    "text": "Database connection pooling mitigates the high overhead of establishing new TCP connections and authenticating sessions for every incoming application request."
+  },
+  {
+    "id": 80,
+    "type": "quiz",
+    "source_url": "https://microservices.io/patterns/data/saga.html",
+    "source_excerpt": "A saga manages distributed transactions through a series of coordinated local transactions using compensating actions to maintain eventual consistency.",
+    "question": "How does the Sagas pattern manage distributed transactions across microservices without locking resources?",
+    "answer": "The Sagas pattern executes a sequence of local transactions where each step updates data and publishes an event; if a step fails, compensating transactions are run to undo previous changes."
+  },
+  {
+    "id": 81,
+    "type": "fact",
+    "source_url": "https://datatracker.ietf.org/doc/html/rfc4786",
+    "source_excerpt": "IP Anycast utilizes BGP routing announcements to steer traffic to the nearest service instance, improving availability and response times.",
+    "text": "Anycast routing directs client packets to the geographically closest or topologically optimal server node advertising the same IP address, minimizing network latency."
+  },
+  {
+    "id": 82,
+    "type": "quiz",
+    "source_url": "https://www.postgresql.org/docs/current/explicit-locking.html",
+    "source_excerpt": "Explicit locking mechanisms allow applications to enforce strict serializability (pessimistic) or rely on version checks before committing updates (optimistic).",
+    "question": "What is the difference between optimistic and pessimistic locking in database concurrency control?",
+    "answer": "Pessimistic locking acquires locks immediately to prevent concurrent modifications, while optimistic locking assumes conflicts are rare, checking for modifications only at commit time."
   }
 ]
