@@ -612,5 +612,80 @@
     "source_excerpt": "Explicit locking mechanisms allow applications to enforce strict serializability (pessimistic) or rely on version checks before committing updates (optimistic).",
     "question": "What is the difference between optimistic and pessimistic locking in database concurrency control?",
     "answer": "Pessimistic locking acquires locks immediately to prevent concurrent modifications, while optimistic locking assumes conflicts are rare, checking for modifications only at commit time."
+  },
+  {
+    "id": 83,
+    "type": "fact",
+    "source_url": "https://www.awsarchitectureblog.com/2012/11/consistent-hashing.html",
+    "source_excerpt": "By applying bounded loads to consistent hashing, systems can prevent hotspotting by capping the maximum number of keys assigned to any specific node.",
+    "text": "Consistent hashing with bounded loads ensures that no single server node is overwhelmed with requests by introducing a capacity limit per node, forcing overflow keys to route to the next available server."
+  },
+  {
+    "id": 84,
+    "type": "quiz",
+    "source_url": "https://queue.acm.org/detail.cfm?id=3022184",
+    "source_excerpt": "BBR congestion control focuses on bottleneck bandwidth and round-trip time to maintain high throughput and low latency, avoiding bufferbloat.",
+    "question": "What is the main difference between TCP BBR and traditional loss-based congestion control algorithms like Cubic?",
+    "answer": "Traditional algorithms like Cubic react to packet loss by slashing the congestion window, often filling large buffer bloat queues. BBR instead models the bottleneck link's maximum bandwidth and minimum round-trip propagation time to pace packets efficiently without relying on packet loss."
+  },
+  {
+    "id": 85,
+    "type": "fact",
+    "source_url": "https://cassandra.apache.org/_/blog/2019/bloom-filters/",
+    "source_excerpt": "Cassandra utilizes Bloom filters to determine whether a block contains the requested data before performing disk I/O operations.",
+    "text": "Bloom filters provide a memory-efficient probabilistic data structure to test whether an element is definitely not in a set or possibly in it, making them ideal for avoiding costly disk lookups in databases like Cassandra."
+  },
+  {
+    "id": 86,
+    "type": "quiz",
+    "source_url": "https://stripe.com/blog/rate-limiters",
+    "source_excerpt": "Token buckets permit burstiness up to a specific limit, whereas leaky buckets enforce a steady outflow rate regardless of how input bursts arrive.",
+    "question": "How does token bucket rate limiting differ from leaky bucket rate limiting?",
+    "answer": "The token bucket algorithm allows a burst of traffic up to the bucket capacity by accumulating tokens over time at a fixed rate. Conversely, the leaky bucket algorithm smooths out bursty traffic by processing requests at a strictly constant, uniform rate."
+  },
+  {
+    "id": 87,
+    "type": "fact",
+    "source_url": "https://research.google/pubs/pub36356/",
+    "source_excerpt": "Dapper utilizes low-overhead trace trees to track the lifecycle of requests as they traverse complex distributed architectures.",
+    "text": "Distributed tracing systems like Google Dapper use causality-tracking identifiers called spans and traces to reconstruct end-to-end request flows across asynchronous microservice boundaries."
+  },
+  {
+    "id": 88,
+    "type": "quiz",
+    "source_url": "https://www.usenix.org/conference/atc12/technical-sessions/presentation/huang",
+    "source_excerpt": "Erasure coding drastically reduces storage redundancy while maintaining or exceeding the fault tolerance guarantees of traditional triple replication.",
+    "question": "Why do distributed block storage systems often use Reed-Solomon erasure coding instead of standard multi-way replication?",
+    "answer": "Erasure coding splits data into fragments and computes parity chunks, providing high durability and fault tolerance with significantly less storage overhead compared to maintaining three or more full physical replicas."
+  },
+  {
+    "id": 89,
+    "type": "fact",
+    "source_url": "https://martinfowler.com/bliki/BlueGreenDeployment.html",
+    "source_excerpt": "Blue-green deployments eliminate cutover downtime by making the switch from the old version to the new version an atomic routing change.",
+    "text": "Blue-green deployment strategies achieve zero-downtime releases by maintaining two identical production environments, routing traffic to the active environment while the new version is deployed and tested on the idle one."
+  },
+  {
+    "id": 90,
+    "type": "quiz",
+    "source_url": "https://redis.io/docs/management/sentinel/",
+    "source_excerpt": "Sentinel monitors Redis instances and executes automatic failover procedures when a master node fails to respond.",
+    "question": "What is the purpose of using a Redis Sentinel configuration in a caching architecture?",
+    "answer": "Redis Sentinel provides high availability by monitoring primary and replica instances, automatically performing leader election and failing over to a replica if the primary node goes offline."
+  },
+  {
+    "id": 91,
+    "type": "fact",
+    "source_url": "https://www.vldb.org/conf/1986/P009.PDF",
+    "source_excerpt": "Shared-nothing architectures scale horizontally by ensuring that nodes do not share disks or memory, minimizing hardware bottleneck points.",
+    "text": "Shared-nothing database architectures partition both data and compute resources completely across independent nodes, eliminating lock contention on shared memory or shared storage arrays."
+  },
+  {
+    "id": 92,
+    "type": "quiz",
+    "source_url": "https://kafka.apache.org/documentation/#design_efficiency",
+    "source_excerpt": "Kafka achieves high network throughput by utilizing kernel-level zero-copy features that bypass user space during data transfers.",
+    "question": "How does Kafka leverage zero-copy optimization to maximize message delivery throughput?",
+    "answer": "Kafka uses the `sendfile` system call, allowing the operating system to transfer data directly from the disk file cache to the network socket buffer without copying data bytes through user-space memory."
   }
 ]
